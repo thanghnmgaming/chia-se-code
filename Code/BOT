@@ -1,0 +1,108 @@
+#define     	b_COST      			15000
+#define     	b_CDOWN     			10000
+#define         b_GSPEED                    	5.0
+
+//streamer
+GateBOT[0] = CreateDynamicObject(2990, 35.9096, -1536.0658, 8.0000, 0.00000, 0.00000, 90.0000); //1
+GateBOT[1] = CreateDynamicObject(2990, 36.8407, -1523.7463, 8.0000, 0.00000, 0.00000, 90.0000); //2
+GateBOT[2] = CreateDynamicObject(19313, 1714.8131, 434.0721, 33.3000, 0.00000, 0.00000, -19.0000); //1
+GateBOT[3] = CreateDynamicObject(19313, 1701.5071, 438.6569, 33.3000, 0.00000, 0.00000, -19.0000); //2
+
+//key
+if(PRESSED(KEY_YES))
+{
+	if(IsAMedic(playerid) || IsACop(playerid) || PlayerInfo[playerid][pAdmin] > 0)
+        {
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSSF1))// 1 ls-sf
+            {
+                OpenGate(1);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+                SendClientMessageEx(playerid, COLOR_YELLOW, "Ban thuoc nhom doi tuong duoc mien tra phi qua BOT !");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSSF2)) // 2 ls-sf
+            {
+                OpenGate(2);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+                SendClientMessageEx(playerid, COLOR_YELLOW, "Ban thuoc nhom doi tuong duoc mien tra phi qua BOT !");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSLV1)) // 3 ls-lv
+            {
+                OpenGate(3);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+                SendClientMessageEx(playerid, COLOR_YELLOW, "Ban thuoc nhom doi tuong duoc mien tra phi qua BOT !");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSLV2)) // 4 ls-lv
+            {
+                OpenGate(4);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+                SendClientMessageEx(playerid, COLOR_YELLOW, "Ban thuoc nhom doi tuong duoc mien tra phi qua BOT !");
+            }
+        }
+        else
+        {
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSSF1))// 1 ls-sf
+            {
+                if(PlayerInfo[playerid][pCash] < b_COST) return 1;
+                PlayerInfo[playerid][pCash] -= b_COST;
+                OpenGate(1);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSSF2)) // 2 ls-sf
+            {
+                if(PlayerInfo[playerid][pCash] < b_COST) return 1;
+                PlayerInfo[playerid][pCash] -= b_COST;
+                OpenGate(2);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSLV1)) // 3 ls-lv
+            {
+                if(PlayerInfo[playerid][pCash] < b_COST) return 1;
+                PlayerInfo[playerid][pCash] -= b_COST;
+                OpenGate(3);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+            }
+            if (IsPlayerInRangeOfPoint(playerid, 10.0, POS_BOT_LSLV2)) // 4 ls-lv
+            {
+                if(PlayerInfo[playerid][pCash] < b_COST) return 1;
+                PlayerInfo[playerid][pCash] -= b_COST;
+                OpenGate(4);
+                SendClientMessageEx(playerid, -1, "~Thuong Lo Binh An~");
+            }
+        }
+}
+
+stock OpenGate(gateid) {
+    if (gateid == 1)
+    {
+        MoveDynamicObject(GateBOT[1], 36.8407, -1523.7463, 0.6000, b_GSPEED);
+        SetTimerEx("CloseGate", b_CDOWN, false, "d", 1);
+    }
+    else if (gateid == 2)
+    {
+        MoveDynamicObject(GateBOT[0], 35.9096, -1536.0658, 0.6000, b_GSPEED);
+        SetTimerEx("CloseGate", b_CDOWN, false, "d", 2);
+    }
+    else if (gateid == 3)
+    {
+        MoveDynamicObject(GateBOT[2], 1714.8131, 434.0721, 26.5000, b_GSPEED);
+        SetTimerEx("CloseGate", b_CDOWN, false, "d", 3);
+    }
+    else if (gateid == 4)
+    {
+        MoveDynamicObject(GateBOT[3], 1701.5071, 438.6569, 26.5000, b_GSPEED);
+        SetTimerEx("CloseGate", b_CDOWN, false, "d", 4);
+    }
+}
+
+forward CloseGate(idgate);
+public CloseGate(idgate) {
+    if(idgate == 1)
+        MoveDynamicObject(GateBOT[1], 36.8407, -1523.7463, 8.0000, b_GSPEED);
+    else if(idgate == 2)
+        MoveDynamicObject(GateBOT[0], 35.9096, -1536.0658, 8.0000, b_GSPEED);
+    else if(idgate == 3)
+        MoveDynamicObject(GateBOT[2], 1714.8131, 434.0721, 33.3000, b_GSPEED);
+    else if(idgate == 4)
+        MoveDynamicObject(GateBOT[3], 1701.5071, 438.6569, 33.3000, b_GSPEED);
+    return 1;
+}
